@@ -1,5 +1,28 @@
 import pandas as pd
 import numpy as np
+import warnings
+import seaborn as sns
+warnings.filterwarnings("ignore")
+import matplotlib.pyplot as plt
+import seaborn as sns
+from mpl_toolkits.mplot3d import Axes3D
+from scipy import stats
+
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+from sklearn.tree import DecisionTreeClassifier, plot_tree, export_text
+
+from sklearn.tree import DecisionTreeClassifier, plot_tree, export_text
+#from sklearn.tree import export_graphviz
+import sklearn.metrics
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+
+
 
 from sklearn.model_selection import train_test_split
 from sklearn.impute import SimpleImputer
@@ -64,5 +87,11 @@ def scaling(X_train, X_validate, X_test):
     X_validate = sc.transform(X_validate)
     X_test = sc.transform(X_test)
     return X_train, X_validate, X_test
+
+def get_status_heatmap(df):
+    '''returns a heatmap with correlations'''
+    plt.figure(figsize=(8,12))
+    loan_heatmap = sns.heatmap(df.corr()[['Loan_Status']].sort_values(by='Loan_Status',                     ascending=False), vmin=-.5, vmax=.5, annot=True,cmap='flare')
+    loan_heatmap.set_title('Features Correlated with Loan Status')
 
 
