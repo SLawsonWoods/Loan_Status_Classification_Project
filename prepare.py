@@ -25,54 +25,44 @@ def train_validate_test_split(df, target, seed=123):
     return train, validate, test
 
 
-def prep_loan_data_modeling(train, validate, test):
-        
-    '''
-    This function take in the telco_churn data acquired by get_connection,
-    Returns prepped df with target column turned to binary, columns dropped that were not needed,           missing values in total_charges handled by deleting those 11 rows, dropping duplicates, and changing     total_charges to numeric)
-    '''
-    
-    
-    encoded_columns=['Gender', 'Married', 'Dependents', 'Education','Self_Employed','Credit_History',       'Property_Area','Loan_Status']
-    
-    #make dummy variables
-    dummy_df = pd.get_dummies(train_encoded[encoded_columns], dummy_na=False, drop_first=[True, True])
-    
-    # put it all back together
-    train_encoded = pd.concat([train_encoded, dummy_df], axis=1)
-    
-    # drop initial column since we have that information now
-    train_encoded = train_encoded.drop(columns=encoded_columns)
-    
-    #make dummy variables
-    dummy_df = pd.get_dummies(validate_encoded[encoded_columns], dummy_na=False, drop_first=[True, True])
-    
-    # put it all back together
-    validate_encoded = pd.concat([validate_encoded, dummy_df], axis=1)
-    
-    # drop initial column since we have that information now
-    validate_encoded = validate_encoded.drop(columns=encoded_columns)
-    
-    #make dummy variables
-    dummy_df = pd.get_dummies(test_encoded[encoded_columns], dummy_na=False, drop_first=[True, True])
-    
-    # put it all back together
-    test_encoded = pd.concat([test_encoded, dummy_df], axis=1)
-    
-#     # drop initial column since we have that information now
-#     test_encoded = test_encoded.drop(columns=encoded_columns)
-    
-#     train_encoded.drop(columns='paperless_billing',inplace=True)
-    
-#     validate_encoded.drop(columns='paperless_billing',inplace=True)
-    
-#     test_encoded.drop(columns='paperless_billing',inplace=True)
-    
-    return train_encoded, validate_encoded, test_encoded
-    
+def prep_function(df):
+    # set loan id as index
+    df = df.set_index('Loan_ID')
+    # rename column
+    df = df.rename(columns={'ApplicantIncome': "Applicant_Income",'CoapplicantIncome':                         "Coapplicant_Income", 'LoanAmount':"Loan_Amount"})
+    # drop nulls in all but loan status
+    df = df.dropna()
+    return df
 
+def encode(train, validate, test):
+    # Encoding categorical data
+    # Encoding the Independent Variable
+    from sklearn.preprocessing import LabelEncoder
+    labelencoder_X = LabelEncoder()
+    # I am going to loop through each col of the type object and encode
+    for col in train.select_dtypes(include = 'object'):
+        train[col]=labelencoder_X.fit_transform(train[col]) 
+        validate[col]=labelencoder_X.fit_transform(validate[col]) 
+        test[col]=labelencoder_X.fit_transform(test[col]) 
+    return train, validate, test
+
+def split_2(train, validate, test): 
+    # here I split into my features and target
+    y_train = train[['Loan_Status']]
+    X_train = train.drop(columns= 'Loan_Status')
+    y_validate = validate[['Loan_Status']]
+    X_validate = validate.drop(columns= 'Loan_Status')
+    y_test = test[['Loan_Status']]
+    X_test = test.drop(columns= 'Loan_Status')
+    return train, validate, test, y_train, X_train, y_validate, X_validate, y_test, X_test
     
-
-
+def scaling(X_train, X_validate, X_test): 
+    # time to scale features
+    from sklearn.preprocessing import StandardScaler
+    sc = StandardScaler()
+    X_train = sc.fit_transform(X_train)
+    X_validate = sc.transform(X_validate)
+    X_test = sc.transform(X_test)
+    return X_train, X_validate, X_test
 
 
