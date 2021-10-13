@@ -52,7 +52,7 @@ def prep_function(df):
     # set loan id as index
     df = df.set_index('Loan_ID')
     # rename column
-    df = df.rename(columns={'ApplicantIncome': "Applicant_Income",'CoapplicantIncome':                         "Coapplicant_Income", 'LoanAmount':"Loan_Amount"})
+    df = df.rename(columns={'ApplicantIncome': "Applicant_Income",'CoapplicantIncome':                         "Coapplicant_Income", 'LoanAmount':"Loan_Amount", 'Gender':'Is_male'})
     # drop nulls in all but loan status
     df = df.dropna()
     return df
@@ -81,11 +81,12 @@ def split_2(train, validate, test):
     
 def scaling(X_train, X_validate, X_test): 
     # time to scale features
+    list_col =['Applicant_Income', 'Coapplicant_Income', 'Loan_Amount','Loan_Amount_Term']
     from sklearn.preprocessing import StandardScaler
     sc = StandardScaler()
-    X_train = sc.fit_transform(X_train)
-    X_validate = sc.transform(X_validate)
-    X_test = sc.transform(X_test)
+    X_train[list_col]= sc.fit_transform(X_train[list_col])
+    X_validate[list_col]= sc.transform(X_validate[list_col])
+    X_test[list_col]= sc.transform(X_test[list_col])
     return X_train, X_validate, X_test
 
 def get_status_heatmap(df):
