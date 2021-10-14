@@ -17,7 +17,7 @@ ________________________________________________________________________________
 9.)  Pipeline Stages Breakdown
 
 
-10.)  Project Plan https://trello.com/b/FbVWBxd8/clustering-with-zillow
+10.)  Project Plan https://trello.com/b/OcXQ7aT0/loan-determination
 10a.) Data Acquisition
 10b.) Data Preparation
 10c.) Data Exploration
@@ -73,24 +73,20 @@ My initial ideas were that there could be a strong relationship between applican
 _________________________________________________________________________________________________________
 **Executive Summary - Conclusions & Next Steps**
 
-Goals: 
-
-(The purpose of this project is create a regression model with using Kmeans clusters (if proven valuable) to predicts the drivers of logerror of Zillow homes in three counties of California (Los Angeles County, Orange County, and Ventrua County))
+Goals: The purpose of this project is to create different classification models to most accurately predict loan approval status.
 
 Target: Loan_Status, yes or no.
 
-Findings: 
+Findings: I created 6 models, a Decision Tree, KNN, 2 Logistic Regression models varying C value and two Random Forest Models with Model 2 performing the best at 84% accuracy on validate which beat my baseline predication of 69.4%.
 
-(The three clusters I created were not insightful enough to use in modeling.  My four models all performed poorly and were beaten by the baseline.  My best model was the 3rd degree polynomial and was beaten by the baseline model by a small amount.)
 
-Results: 
-
-(Best predictors discovered were bedroom count, number of bedrooms and I found no significant clusters to use as features in modeling)
+Results: The best predictors I discovered in exploration and modeling were Credit History, Loan_Amount, Married and debatably gender.  In my visuals I found gender to have a higher correlation value than most of the features, I also did a chi squared test to evaluate if there was a relationship and found there was a significant relationship, but in feature importance gender was listed as one of the least important features.
 
 Conclusion and Next Steps: 
+-Some of the features I guessed would be valuable like applicant income and gender were not in a strong relationship with the target. 
+-We find that one ML method, random forest Model 2 improves tthe accuracy of default predictions the most in the loan dataset. This ML method is superior to the baseline model of predicting the mode.
 
-(Some initial exploration and statistical testing revealed that some features that had better correlation with logerror were bedroom and bathroom and with more time, I would like to test these features in clustering.)
-
+Next Steps: With more time I would create loops to create a multitude of models varying their parameters and features to find the best accuracy.  I would also run more tests of models with and without gender to see what impact this feature truly has on the accuracy of predictions.
 
 _________________________________________________________________________________________________________
 **Pipeline Stages Breakdown**
@@ -140,7 +136,7 @@ ________________________________________________________________________________
 
 
  Read this README.md
- Download the 2 csv files I have provided, prepare.py, and final_report.ipynb files into your working directory
+ Download the 2 csv files I have provided, prepare.py, and final_report.ipynb files into your working     directory
  Run the final_notebook.ipynb
  
 _________________________________________________________________________________________________________
