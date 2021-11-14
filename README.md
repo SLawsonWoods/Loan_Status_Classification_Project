@@ -50,22 +50,25 @@ My loan dataset comes from https://data-flair.training/blogs/machine-learning-pr
 ________________________________________________________________________________________________________
 **Data Dictionary**
 
-Column Name                                               Description
 
-Loan_ID                                                   Unique Loan ID
-Gender                                                    Male/ Female
-Married                                                   Applicant married (Y/N)
-Dependents                                                Number of dependents
-Education                                                 Applicant Education (Graduate/ Under-Graduate)
-Self_Employed                                             Self employed (Y/N)
-ApplicantIncome                                           Applicant income
-CoapplicantIncome                                         Coapplicant income
-LoanAmount                                                Loan amount in thousands
-Loan_Amount_Term                                          Term of loan in months
-Credit_History                                            Credit history meets guidelines
-Property_Area                                             Urban/ Semi Urban/ Rural
-Loan_Status                                               Loan approved (Y/N)
-_________________________________________________________________________________________________________
+
+
+| Feature               | Datatype               | Description                                   |
+|:----------------------|:-----------------------|:----------------------------------------------|
+| Loan_ID               | 1311 non-null: int64   | Unique Loan ID                                |
+| Gender                | 1311 non-null: object  | Male/ Female                                  |
+| Married               | 1304 non-null: object  | Applicant married (Y/N)                       |
+| Dependents            | 1310 non-null: object  | Number of dependents                          |
+| Education             | 955 non-null: object   | Applicant Education (Graduate/ Under-Graduate)|
+| Self_Employed         | 270 non-null: object   | Applicant income                              |
+| ApplicantIncome       | 311 non-null: int64    | Mill where the beans were processed           |  |CoapplicantIncome      | 1311 non-null: int64   | Coapplicant income                            |
+| Credit History        | 1165 non-null: object  | Credit history meets guidelines               |
+| LoanAmount            | 1311 non-null: int64   | Loan amount in thousands                      |
+| Loan_Amount_Term      | 1311 non-null: int64   | Term of loan in months                        |       
+| Property_Area         | 1088 non-null: object  | Urban/ Semi Urban/ Rural                      |
+| Loan_Status           | 1254 non-null: object  |   Loan approved (Y/N)                         |
+
+______________________________________________________________________________________________________
 **Initial Hypotheses**
 
 My initial ideas were that there could be a strong relationship between applicant income and loan approval and that being male or female might have an impact on loan approval as well.
