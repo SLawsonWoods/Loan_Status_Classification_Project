@@ -89,10 +89,6 @@ def scaling(X_train, X_validate, X_test):
     X_test[list_col]= sc.transform(X_test[list_col])
     return X_train, X_validate, X_test
 
-def get_status_heatmap(df):
-    '''returns a heatmap with correlations'''
-    plt.figure(figsize=(8,12))
-    loan_heatmap = sns.heatmap(df.corr()[['Loan_Status']].sort_values(by='Loan_Status',                     ascending=False), vmin=-.5, vmax=.5, annot=True,cmap='flare')
-    loan_heatmap.set_title('Features Correlated with Loan Status')
+
 
 
